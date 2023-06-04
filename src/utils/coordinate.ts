@@ -33,15 +33,15 @@ export class Range {
 
 function coordinateOutsideRange(c: Coordinate, range: Range): boolean {
   return (
-    c.X >= range.min_x ||
-    c.X < range.max_x ||
-    c.Y >= range.min_y ||
-    c.Y < range.max_y
+    c.X < range.min_x ||
+    c.X >= range.max_x ||
+    c.Y < range.min_y ||
+    c.Y >= range.max_y
   );
 }
 
 export function coordinatesAnyOutsideRange(arr: Coordinate[], range: Range) {
   return arr.some((coord) => {
-    coordinateOutsideRange(coord, range);
+    return coordinateOutsideRange(coord, range);
   });
 }
