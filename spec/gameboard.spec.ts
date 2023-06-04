@@ -1,36 +1,34 @@
-import { Gameboard } from "../src/utils/gameboard";
+import { Coordinate } from "../src/utils/coordinate";
+import { CELL_STATE, Gameboard } from "../src/utils/gameboard";
 
 let gameboard: Gameboard;
 
-describe("A suite is just a function", function () {
+describe("3x3 gameboard tests", function () {
   beforeEach(() => {
-    gameboard = new Gameboard(5, 5);
+    const targets: Coordinate[] = [new Coordinate(1, 1), new Coordinate(0, 0)];
+    gameboard = new Gameboard(3, 3, targets);
   });
 
-  it("gameboard of size 5x5 is generated", function () {
-    expect(gameboard.width).toBe(5);
-    expect(gameboard.height).toBe(5);
+  it("can't attack outside game board", function () {
+    expect(gameboard.isAttackValid(new Coordinate(0, 3))).toBe(false);
+    expect(gameboard.isAttackValid(new Coordinate(3, 0))).toBe(false);
   });
 
-  it("place ship", function () {
-    // place a ship at a coordinate on the board
-    // can be placed horizontally or vertically
-    // Need to check they don't collide with existing ships!
-    // Need to check they don't go off edge of board!
+  it("receieve attack and ship is missed", function () {
+    const attackCoord = new Coordinate(2, 2);
+    gameboard.recieveAttack(attackCoord);
+    expect(gameboard.getCellState(attackCoord)).toBe(CELL_STATE.MISS);
   });
 
-  it("receieve attack", function () {
-    // receieve an attack and either hit or miss a ship
-  });
-
-  it("keep track of missed attacks", function () {
-    // we need to keep track on any missed attacks
-    // maintain a gameboard array
-    // this will indicate pending, hit or missed
+  it("receieve attack and ship is hit", function () {
+    const attackCoord = new Coordinate(1, 1);
+    gameboard.recieveAttack(attackCoord);
+    expect(gameboard.getCellState(attackCoord)).toBe(CELL_STATE.HIT);
   });
 
   it("indicate all ships have been sunk", function () {
-    // when all ships are sunk, we need to report this!
-    // Iterate through all ships and check if sunk.
+    gameboard.recieveAttack(new Coordinate(0, 0));
+    gameboard.recieveAttack(new Coordinate(1, 1));
+    expect(gameboard.allTargetsHit()).toBe(true);
   });
 });

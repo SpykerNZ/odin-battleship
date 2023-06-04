@@ -1,29 +1,19 @@
-import { Ship } from "../src/utils/ship";
+import { Coordinate } from "../src/utils/coordinate";
+import { ORIENTATION, Ship } from "../src/utils/ship";
 
 let ship: Ship;
 
 describe("A suite is just a function", function () {
   beforeEach(() => {
-    ship = new Ship(3);
+    const coord = new Coordinate(0, 0);
+    const length = 3;
+    const direction = ORIENTATION.HORIZONTAL;
+    ship = new Ship(coord, length, direction);
   });
 
-  it("ship length is 3", function () {
-    expect(ship.length).toBe(3);
-  });
-
-  it("ship starts undamaged", function () {
-    expect(ship.damage).toBe(0);
-  });
-
-  it("ship is hit and takes 1 damage", function () {
-    ship.hit();
-    expect(ship.damage).toBe(1);
-  });
-
-  it("ship is sunk after 3 hits", function () {
-    ship.hit();
-    ship.hit();
-    ship.hit();
-    expect(ship.isSunk()).toBe(true);
+  it("check generated coordinates", function () {
+    expect(ship.coordinatesArray[0]).toEqual(new Coordinate(0, 0));
+    expect(ship.coordinatesArray[1]).toEqual(new Coordinate(1, 0));
+    expect(ship.coordinatesArray[2]).toEqual(new Coordinate(2, 0));
   });
 });

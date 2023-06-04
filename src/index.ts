@@ -1,6 +1,6 @@
 import "./styles.scss";
-import { Gameboard } from "./utils/gameboard";
+import { GameboardSetup } from "./utils/gameboard";
 
-const gameboard = new Gameboard(5, 5);
+const gameboard = new GameboardSetup(5, 5);
 
 console.log("Hello Battleship!");
