@@ -41,7 +41,7 @@ export class GameboardSetup {
   getTargets(): Coordinate[] {
     const targets: Coordinate[] = [];
     this.shipsArray.map((ship) => {
-      targets.concat(ship.coordinatesArray);
+      targets.push(...ship.coordinatesArray);
     });
     return targets;
   }
